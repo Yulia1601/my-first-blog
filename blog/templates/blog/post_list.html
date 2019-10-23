@@ -1,17 +1,15 @@
-<html>
-    <head>
-        <title>Django Girls blog</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="/">Django Girls Blog</a></h1>
-            {% for post in posts %}
-                <div>
-                    <p>published: {{ post.published_date }}</p>
-                    <h1><a href="">{{ post.title }}</a></h1>
-                    <p>{{ post.text|linebreaksbr }}</p>
-                </div>
-            {% endfor %}
+{% extends 'blog/base.html' %}
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                <p>{{ post.published_date }}</p>
+            </div>
+            <!--<h1><a href="">{{ post.title }}</a></h1>-->
+            <!-- Параметр post_detail означает, что Django будет искать URL с именем post_detail в файле blog.urls.py. -->
+            <!-- pk — это сокращение от primary key (первичный ключ). Он уникальным образом определяет каждую запись в базе данных.-->
+                <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
         </div>
-    </body>
-</html>
+    {% endfor %}
+{% endblock %}
